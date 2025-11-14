@@ -1,0 +1,16 @@
+{
+    "name": "NathanThus.PerfectAim.Editor",
+    "rootNamespace": "NathanThus.PerfectAim.Editor",
+    "references": [
+        "GUID:0de72ab974c93ba468ead71b54685f1f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

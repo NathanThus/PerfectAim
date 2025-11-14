@@ -1,0 +1,18 @@
+{
+    "name": "NathanThus.PerfectAim.Demo",
+    "rootNamespace": "NathanThus.PerfectAim.Demo",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:7e680dfd8eb7e3741a334e7ff675549b",
+        "GUID:0de72ab974c93ba468ead71b54685f1f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
