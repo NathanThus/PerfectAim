@@ -22,7 +22,7 @@ namespace NathanThus.PerfectAim.Demo
 
             Rigidbody proj = Instantiate(_projectilePrefab, _spawnPoint.position, _spawnPoint.rotation);
             proj.linearVelocity = velocity;
-            Destroy(proj.gameObject, 10f);
+            Destroy(proj.gameObject, _destructionTime);
         }
     }
 }
