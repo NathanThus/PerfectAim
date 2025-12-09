@@ -15,9 +15,11 @@ namespace NathanThus.PerfectAim.Demo
         InputActionsDemo _inputActions;
 
         [SerializeField] private Transform _targettingObject;
+        [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Camera _camera;
         [SerializeField] private PerfectAim _perfectAim;
         [SerializeField] private ProjectileLauncher _launcher;
+        [SerializeField] private Vector3 _velocityVector;
 
         void Start()
         {
@@ -28,6 +30,20 @@ namespace NathanThus.PerfectAim.Demo
 
             _locationListener = _inputActions.Player.Look;
             _locationListener.Enable();
+        }
+
+        void OnEnable()
+        {
+            _clickListener.performed += HandleClick;
+            _clickListener.Enable();
+        }
+
+        void Oisable()
+        {
+            _clickListener.performed -= HandleClick;
+            _clickListener.Disable();
+            _locationListener.Disable();
+
         }
 
         void OnDestroy()
@@ -48,7 +64,8 @@ namespace NathanThus.PerfectAim.Demo
             }
 
             _targettingObject.position = new Vector3(hit.point.x, 0, hit.point.z);
-            Vector3 Velocity = _perfectAim.CalculateVelocity(_targettingObject.position);
+            _rigidbody.linearVelocity = _velocityVector;
+            Vector3 Velocity = _perfectAim.CalculateVelocity(_targettingObject.position, _rigidbody.linearVelocity);
             Debug.Log(Velocity);
             _launcher.LaunchProjectile(Velocity);
         }
