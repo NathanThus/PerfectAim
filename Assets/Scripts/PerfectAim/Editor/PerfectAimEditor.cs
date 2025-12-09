@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace NathanThus.PerfectAim.Editor
 {
-    using UnityEngine;
     using UnityEditor;
 
     [CustomEditor(typeof(PerfectAim))]
     public class PerfectAimEditor : Editor
     {
         private const int ARC_SEGMENTS = 50;
+        private const float SPHERE_SIZE = 0.3f;
 
         public override void OnInspectorGUI()
         {
@@ -86,6 +86,7 @@ namespace NathanThus.PerfectAim.Editor
         private void OnSceneGUI()
         {
             PerfectAim perfectAimModule = (PerfectAim)target;
+            if (!perfectAimModule.ShowArcInEditor) return;
 
             Vector3 origin = perfectAimModule.transform.position;
             Vector3 targetPos = perfectAimModule.DebugTargetPosition;
@@ -123,36 +124,28 @@ namespace NathanThus.PerfectAim.Editor
                 previousPoint = point;
             }
 
-            // Draw origin point
             Handles.color = Color.blue;
-            Handles.SphereHandleCap(0, origin, Quaternion.identity, 0.3f, EventType.Repaint);
+            Handles.SphereHandleCap(0, origin, Quaternion.identity, SPHERE_SIZE, EventType.Repaint);
             Handles.Label(origin + Vector3.up * 0.5f, "Origin");
 
-            // Draw velocity vector at origin
             Handles.color = Color.yellow;
             Handles.DrawLine(origin, origin + launchVelocity.normalized * 2f);
             Handles.Label(origin + launchVelocity.normalized * 2.5f,
                 $"V: {launchVelocity.magnitude:F2} m/s\nTime: {totalTime:F2}s");
 
-            // Draw where the arc actually lands
+            // Draw where the projectile actually lands
             Handles.color = Color.cyan;
             Handles.SphereHandleCap(0, previousPoint, Quaternion.identity, 0.25f, EventType.Repaint);
-            float distanceToTarget = Vector3.Distance(previousPoint, targetPos);
-            
-            Handles.Label(previousPoint, $"Landing\nError: {distanceToTarget:F2}m");
-            //+ Vector3.up * 0.5f
         }
 
         private float CalculateFlightTime(Vector3 launchVelocity)
         {
-            // Simple approximation: time = 2 * vy / g
             float gravity = Mathf.Abs(Physics.gravity.y);
             return 2f * launchVelocity.y / gravity;
         }
 
         private Vector3 CalculatePositionAtTime(Vector3 origin, Vector3 velocity, float time)
         {
-            // Kinematic equation: position = origin + velocity * t + 0.5 * gravity * t^2
             return origin + velocity * time + 0.5f * time * time * Physics.gravity;
         }
     }

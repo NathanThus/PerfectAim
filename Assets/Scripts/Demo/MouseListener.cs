@@ -24,6 +24,7 @@ namespace NathanThus.PerfectAim.Demo
         void Start()
         {
             _inputActions = new InputActionsDemo();
+            
             _clickListener = _inputActions.Player.Attack;
             _clickListener.performed += HandleClick;
             _clickListener.Enable();
@@ -32,13 +33,7 @@ namespace NathanThus.PerfectAim.Demo
             _locationListener.Enable();
         }
 
-        void OnEnable()
-        {
-            _clickListener.performed += HandleClick;
-            _clickListener.Enable();
-        }
-
-        void Oisable()
+        void OnDisable()
         {
             _clickListener.performed -= HandleClick;
             _clickListener.Disable();
@@ -65,9 +60,13 @@ namespace NathanThus.PerfectAim.Demo
 
             _targettingObject.position = new Vector3(hit.point.x, 0, hit.point.z);
             _rigidbody.linearVelocity = _velocityVector;
-            Vector3 Velocity = _perfectAim.CalculateVelocity(_targettingObject.position, _rigidbody.linearVelocity);
-            Debug.Log(Velocity);
-            _launcher.LaunchProjectile(Velocity);
+
+            Vector3 launchVelocity = _perfectAim.CalculateVelocity(_targettingObject.position, _rigidbody.linearVelocity);
+
+            Debug.Log(launchVelocity);
+            
+            _perfectAim.ShowArc(launchVelocity);
+            _launcher.LaunchProjectile(launchVelocity);
         }
     }
 }
