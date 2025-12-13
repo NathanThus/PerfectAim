@@ -128,10 +128,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 213325708}
-  - component: {fileID: 213325707}
-  - component: {fileID: 213325709}
-  - component: {fileID: 213325710}
   - component: {fileID: 213325711}
+  - component: {fileID: 213325712}
   m_Layer: 0
   m_Name: PerfectAim
   m_TagString: Untagged
@@ -139,24 +137,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &213325707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213325706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38411f07eaea784483864b0365c666d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targettingObject: {fileID: 1461994987}
-  _rigidbody: {fileID: 1461994988}
-  _camera: {fileID: 330585545}
-  _perfectAim: {fileID: 213325709}
-  _launcher: {fileID: 213325710}
-  _velocityVector: {x: 0, y: 0, z: 2}
 --- !u!4 &213325708
 Transform:
   m_ObjectHideFlags: 0
@@ -166,51 +146,12 @@ Transform:
   m_GameObject: {fileID: 213325706}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.88, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1248095632}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &213325709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213325706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85a9b342295d12342a8d53390e0f90f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _originTransform: {fileID: 213325708}
-  _maximumVelocity: 20
-  _style: 2
-  _heightMax: 100
-  _mimimumFlightTime: 1
-  _desiredFlightTime: 2
-  _maximumFlightTime: 5
-  _windAcceleration: {x: 0, y: 0}
-  _lineRenderer: {fileID: 213325711}
-  _lineSegments: 20
-  _debugTargetPosition: {fileID: 1461994987}
---- !u!114 &213325710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213325706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4bef6e78906505409ca15e62492916b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 1248095633}
-  _spawnPoint: {fileID: 213325708}
-  _destructionTime: 10
 --- !u!120 &213325711
 LineRenderer:
   serializedVersion: 2
@@ -336,6 +277,29 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &213325712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213325706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a9b342295d12342a8d53390e0f90f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originTransform: {fileID: 915159780}
+  _maximumVelocity: 10
+  _style: 2
+  _heightMax: 100
+  _mimimumFlightTime: 1
+  _desiredFlightTime: 2
+  _maximumFlightTime: 5
+  _windAcceleration: {x: 0, y: 0}
+  _lineRenderer: {fileID: 213325711}
+  _lineSegments: 20
+  _debugTargetPosition: {fileID: 1461994987}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +673,7 @@ GameObject:
   - component: {fileID: 602959691}
   - component: {fileID: 602959690}
   m_Layer: 0
-  m_Name: Base
+  m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -836,6 +800,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &915159779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 915159780}
+  - component: {fileID: 915159782}
+  - component: {fileID: 915159781}
+  m_Layer: 0
+  m_Name: ProjectileSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &915159780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915159779}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &915159781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915159779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38411f07eaea784483864b0365c666d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targettingObject: {fileID: 1461994987}
+  _rigidbody: {fileID: 1461994988}
+  _camera: {fileID: 330585545}
+  _perfectAim: {fileID: 213325712}
+  _launcher: {fileID: 915159782}
+  _velocityVector: {x: 0, y: 0, z: 0}
+--- !u!114 &915159782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915159779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bef6e78906505409ca15e62492916b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectilePrefab: {fileID: 1248095633}
+  _spawnPoint: {fileID: 915159780}
+  _destructionTime: 10
 --- !u!1 &919199186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,11 +1167,11 @@ Transform:
   m_GameObject: {fileID: 1248095631}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.94, y: -7.39, z: 2.07}
+  m_LocalPosition: {x: 9.94, y: -6.5099998, z: 2.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 213325708}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1248095633
 Rigidbody:
@@ -1603,3 +1633,5 @@ SceneRoots:
   - {fileID: 213325708}
   - {fileID: 1461994987}
   - {fileID: 602959693}
+  - {fileID: 1248095632}
+  - {fileID: 915159780}

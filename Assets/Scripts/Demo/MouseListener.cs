@@ -20,6 +20,7 @@ namespace NathanThus.PerfectAim.Demo
         [SerializeField] private PerfectAim _perfectAim;
         [SerializeField] private ProjectileLauncher _launcher;
         [SerializeField] private Vector3 _velocityVector;
+        [SerializeField] private SphereCollider _rangeIndicator;
 
         void Start()
         {
@@ -50,6 +51,7 @@ namespace NathanThus.PerfectAim.Demo
 
         private void HandleClick(InputAction.CallbackContext _)
         {
+            _rangeIndicator.radius = _perfectAim.CalculateRange();
             Ray ray = _camera.ScreenPointToRay(_locationListener.ReadValue<Vector2>());
 
             if (!Physics.Raycast(ray, out RaycastHit hit, 50f))
@@ -62,9 +64,12 @@ namespace NathanThus.PerfectAim.Demo
             _rigidbody.linearVelocity = _velocityVector;
 
             Vector3 launchVelocity = _perfectAim.CalculateVelocity(_targettingObject.position, _rigidbody.linearVelocity);
+            if(launchVelocity == Vector3.zero)
+            {
+                Debug.Log("Out of Range!");
+                return;
+            }
 
-            Debug.Log(launchVelocity);
-            
             _perfectAim.ShowArc(launchVelocity);
             _launcher.LaunchProjectile(launchVelocity);
         }

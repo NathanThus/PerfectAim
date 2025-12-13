@@ -23,6 +23,7 @@ namespace NathanThus.PerfectAim
         [Header("Debug Visualization")]
         [SerializeField] private Transform _debugTargetPosition; // Set this in the inspector
         public Vector3 DebugTargetPosition => _debugTargetPosition.position;
+        public Vector3 SpawnPosition => _originTransform.position;
         public bool ShowArcInEditor { get => showArcInEditor; set { showArcInEditor = value; } }
         private bool showArcInEditor = true;
         private readonly float _gravityMagnitudeSquared = Mathf.Pow(Physics.gravity.magnitude, 2);
@@ -32,6 +33,8 @@ namespace NathanThus.PerfectAim
             if (_lineRenderer == null) return;
             _lineRenderer.positionCount = _lineSegments;
             _lineRenderer.useWorldSpace = true;
+
+            Debug.Log(CalculateRange());
         }
 
         public Vector3 CalculateVelocity(Vector3 target)
@@ -56,11 +59,20 @@ namespace NathanThus.PerfectAim
             return CalculateLaunchVelocity(deltaPosition, FlightTime(discriminant));
         }
 
+        public float CalculateRange()
+        {
+            float maxDistance = _maximumVelocity * _maximumVelocity / Physics.gravity.magnitude;
+            return maxDistance;
+        }
+
+        public void SetEnviromentalParameters(Vector2 wind)
+        {
+            _windAcceleration = wind;
+        }
+
         private Vector3 CalculateLaunchVelocity(Vector3 deltaPosition, float flightTime)
         {
-            Vector3 launchVelocity = deltaPosition / flightTime + GetEnvironmentalAcceleration() * (flightTime / 2.0f);
-
-            return launchVelocity;
+            return deltaPosition / flightTime + GetEnvironmentalAcceleration() * (flightTime / 2.0f);
         }
 
         public void ShowArc(Vector3 launchVelocity)

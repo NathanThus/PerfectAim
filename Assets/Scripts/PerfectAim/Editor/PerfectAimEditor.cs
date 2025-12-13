@@ -26,11 +26,11 @@ namespace NathanThus.PerfectAim.Editor
         }
 
         [DrawGizmo(GizmoType.NonSelected | GizmoType.Selected)]
-        static void DrawArcGizmo(PerfectAim perfectAimModule, GizmoType gizmoType)
+        void DrawArcGizmo(PerfectAim perfectAimModule, GizmoType gizmoType)
         {
             if (!perfectAimModule.ShowArcInEditor) return;
 
-            Vector3 origin = perfectAimModule.transform.position;
+            Vector3 origin = perfectAimModule.SpawnPosition;
             Vector3 targetPos = perfectAimModule.DebugTargetPosition;
 
             // Draw target position
