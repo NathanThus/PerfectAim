@@ -37,6 +37,11 @@ namespace NathanThus.PerfectAim
             Debug.Log(CalculateRange());
         }
 
+        /// <summary>
+        /// Calculate the velocity to hit a target.
+        /// </summary>
+        /// <param name="target">The global position of the target.</param>
+        /// <returns>The velocity required to hit the target</returns>
         public Vector3 CalculateVelocity(Vector3 target)
         {
             Vector3 deltaPosition = target - _originTransform.position;
@@ -48,6 +53,12 @@ namespace NathanThus.PerfectAim
             return CalculateLaunchVelocity(deltaPosition, FlightTime(discriminant));
         }
 
+        /// <summary>
+        /// Calculate the velocity to hit a target.
+        /// </summary>
+        /// <param name="target">The global position of the target.</param>
+        /// <param name="velocity">The target's velocity.</param>
+        /// <returns>The velocity required to hit the target</returns>
         public Vector3 CalculateVelocity(Vector3 target, Vector3 velocity)
         {
             Vector3 deltaPosition = target - _originTransform.position + velocity * _desiredFlightTime;
@@ -59,22 +70,30 @@ namespace NathanThus.PerfectAim
             return CalculateLaunchVelocity(deltaPosition, FlightTime(discriminant));
         }
 
+        /// <summary>
+        /// Calculates the maximum range the system can hit, with the given maximum velocity.
+        /// </summary>
+        /// <returns>The maximum distance in standard Unity Units.</returns>
         public float CalculateRange()
         {
             float maxDistance = _maximumVelocity * _maximumVelocity / Physics.gravity.magnitude;
             return maxDistance;
         }
 
-        public void SetEnviromentalParameters(Vector2 wind)
+        /// <summary>
+        /// Set the windspeed variable for CalculateVelocity
+        /// </summary>
+        /// <param name="windX">The windspeed in the X direction.</param>
+        /// <param name="windZ">The windspeed in the Z direction.</param>
+        public void SetEnviromentalParameters(float windX, float windZ)
         {
-            _windAcceleration = wind;
+            _windAcceleration = new Vector2(windX, windZ);
         }
 
-        private Vector3 CalculateLaunchVelocity(Vector3 deltaPosition, float flightTime)
-        {
-            return deltaPosition / flightTime + GetEnvironmentalAcceleration() * (flightTime / 2.0f);
-        }
-
+        /// <summary>
+        /// Show the arc that the projectile will perform, using the given Linerenderer and LaunchVelocity.
+        /// </summary>
+        /// <param name="launchVelocity">The launch velocity of the projectile.</param>
         public void ShowArc(Vector3 launchVelocity)
         {
             Vector3 _launchOrigin = _originTransform.position;
@@ -84,10 +103,22 @@ namespace NathanThus.PerfectAim
             }
         }
 
+        /// <summary>
+        /// Calculates the position of the projectile at the a given point in time.
+        /// </summary>
+        /// <param name="origin">The origin position.</param>
+        /// <param name="velocity">The velocity of the projectile.</param>
+        /// <param name="time">The time post launch.</param>
+        /// <returns></returns>
         public Vector3 CalculatePositionAtTime(Vector3 origin, Vector3 velocity, float time)
         {
             // Kinematic equation: position = origin + velocity * t + 0.5 * t^2 * gravity 
             return origin + velocity * time + 0.5f * Mathf.Pow(time, 2) * Physics.gravity;
+        }
+
+        private Vector3 CalculateLaunchVelocity(Vector3 deltaPosition, float flightTime)
+        {
+            return deltaPosition / flightTime + GetEnvironmentalAcceleration() * (flightTime / 2.0f);
         }
 
         private float GetMaximumFlightTime(float velocitySquared, float sqrtDiscriminant)
