@@ -96,10 +96,9 @@ namespace NathanThus.PerfectAim
         /// <param name="launchVelocity">The launch velocity of the projectile.</param>
         public void ShowArc(Vector3 launchVelocity)
         {
-            Vector3 _launchOrigin = _originTransform.position;
             for (int i = 0; i < _lineSegments; i++)
             {
-                _lineRenderer.SetPosition(i, CalculatePositionAtTime(_launchOrigin, launchVelocity, i * 0.1f));
+                _lineRenderer.SetPosition(i, CalculatePositionAtTime(_originTransform.position, launchVelocity, i * 0.1f));
             }
         }
 
