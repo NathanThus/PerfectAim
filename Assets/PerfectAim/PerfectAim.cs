@@ -112,7 +112,7 @@ namespace NathanThus.PerfectAim
         public Vector3 CalculatePositionAtTime(Vector3 origin, Vector3 velocity, float time)
         {
             // Kinematic equation: position = origin + velocity * t + 0.5 * t^2 * gravity 
-            return origin + velocity * time + 0.5f * Mathf.Pow(time, 2) * Physics.gravity;
+            return origin + velocity * time + 0.5f * Mathf.Pow(time, 2) * GetEnvironmentalAcceleration();
         }
 
         private Vector3 CalculateLaunchVelocity(Vector3 deltaPosition, float flightTime)
