@@ -34,7 +34,7 @@ namespace NathanThus.PerfectAim
             _lineRenderer.positionCount = _lineSegments;
             _lineRenderer.useWorldSpace = true;
 
-            Debug.Log(CalculateRange());
+            if (_originTransform == null) throw new NullReferenceException(nameof(_originTransform));
         }
 
         /// <summary>
