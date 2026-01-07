@@ -139,9 +139,9 @@ namespace NathanThus.PerfectAim
         {
             return _style switch
             {
-                ArcStyle.MimimalTrajectory => GetMinimumFlightTime(MathF.Pow(_maximumVelocity, 2),
+                ArcStyle.MinimalTrajectory => GetMinimumFlightTime(Mathf.Pow(_maximumVelocity, 2),
                                                                    Mathf.Sqrt(discriminant)),
-                ArcStyle.MaximumTrajectory => GetMaximumFlightTime(MathF.Pow(_maximumVelocity, 2),
+                ArcStyle.MaximumTrajectory => GetMaximumFlightTime(Mathf.Pow(_maximumVelocity, 2),
                                                                    Mathf.Sqrt(discriminant)),
                 ArcStyle.PreciseFlightTime => _desiredFlightTime,
                 _ => throw new NotImplementedException()

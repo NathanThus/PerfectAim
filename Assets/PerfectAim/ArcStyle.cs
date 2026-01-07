@@ -4,7 +4,7 @@ namespace NathanThus.PerfectAim
 {
     public enum ArcStyle
     {
-        MimimalTrajectory,
+        MinimalTrajectory,
         MaximumTrajectory,
         PreciseFlightTime
     }
