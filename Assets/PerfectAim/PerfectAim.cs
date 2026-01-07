@@ -10,7 +10,7 @@ namespace NathanThus.PerfectAim
         [SerializeField] private float _maximumVelocity;
         [SerializeField] private ArcStyle _style;
         [SerializeField] private float _heightMax;
-        [SerializeField] private float _mimimumFlightTime = 1f;
+        [SerializeField] private float _minimumFlightTime = 1f;
         [SerializeField] private float _desiredFlightTime = 2f;
         [SerializeField] private float _maximumFlightTime = 5f;
         [SerializeField] private Vector2 _windAcceleration;
@@ -47,7 +47,7 @@ namespace NathanThus.PerfectAim
             Vector3 deltaPosition = target - _originTransform.position;
             float distance = deltaPosition.magnitude;
 
-            float discriminant = MathF.Pow(_maximumVelocity, 4) - _gravityMagnitudeSquared * Mathf.Pow(distance, 2);
+            float discriminant = Mathf.Pow(_maximumVelocity, 4) - _gravityMagnitudeSquared * Mathf.Pow(distance, 2);
             if (discriminant < 0) return Vector3.zero; // NO POSSIBLE TRAJECTORIES
 
             return CalculateLaunchVelocity(deltaPosition, FlightTime(discriminant));
@@ -64,7 +64,7 @@ namespace NathanThus.PerfectAim
             Vector3 deltaPosition = target - _originTransform.position + velocity * _desiredFlightTime;
             float distance = deltaPosition.magnitude;
 
-            float discriminant = MathF.Pow(_maximumVelocity, 4) - _gravityMagnitudeSquared * Mathf.Pow(distance, 2);
+            float discriminant = Mathf.Pow(_maximumVelocity, 4) - _gravityMagnitudeSquared * Mathf.Pow(distance, 2);
             if (discriminant < 0) return Vector3.zero; // NO POSSIBLE TRAJECTORIES
 
             return CalculateLaunchVelocity(deltaPosition, FlightTime(discriminant));
@@ -131,7 +131,7 @@ namespace NathanThus.PerfectAim
         private float GetMinimumFlightTime(float velocitySquared, float sqrtDiscriminant)
         {
             float t = Mathf.Sqrt((velocitySquared - sqrtDiscriminant) / _gravityMagnitudeSquared);
-            t = Mathf.Max(t, _mimimumFlightTime);
+            t = Mathf.Max(t, _minimumFlightTime);
             return t;
         }
 
