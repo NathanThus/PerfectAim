@@ -5,6 +5,9 @@ namespace NathanThus.PerfectAim
 {
     public class PerfectAim : MonoBehaviour
     {
+
+        #region Serialized Fields
+
         [Header("Main Settings")]
         [SerializeField] private Transform _originTransform;
         [SerializeField] private float _maximumVelocity;
@@ -14,7 +17,6 @@ namespace NathanThus.PerfectAim
         [SerializeField] private float _desiredFlightTime = 2f;
         [SerializeField] private float _maximumFlightTime = 5f;
         [SerializeField] private Vector2 _windAcceleration;
-        private Vector3 _physicsAcceleration = Physics.gravity * -1;
 
         [Header("Player Line Visualisation")]
         [SerializeField] private LineRenderer _lineRenderer;
@@ -22,12 +24,26 @@ namespace NathanThus.PerfectAim
 
         [Header("Debug Visualization")]
         [SerializeField] private Transform _debugTargetPosition; // Set this in the inspector
+
+        #endregion
+
+        #region Properties
+
         public Vector3 DebugTargetPosition => _debugTargetPosition.position;
         public Vector3 SpawnPosition => _originTransform.position;
-        public bool ShowArcInEditor { get => showArcInEditor; set { showArcInEditor = value; } }
-        private bool showArcInEditor = true;
-        private readonly float _gravityMagnitudeSquared = Mathf.Pow(Physics.gravity.magnitude, 2);
+        public bool ShowArcInEditor { get => showArcInEditor; set => showArcInEditor = value; }
 
+        #endregion
+
+        #region Fields
+
+        private readonly float _gravityMagnitudeSquared = Mathf.Pow(Physics.gravity.magnitude, 2);
+        private Vector3 _physicsAcceleration = Physics.gravity * -1;
+        private bool showArcInEditor = true;
+
+        #endregion
+
+        #region Start
         private void Start()
         {
             if (_lineRenderer == null) return;
@@ -36,6 +52,10 @@ namespace NathanThus.PerfectAim
 
             if (_originTransform == null) throw new NullReferenceException(nameof(_originTransform));
         }
+
+        #endregion
+
+        #region Public
 
         /// <summary>
         /// Calculate the velocity to hit a target.
@@ -108,12 +128,16 @@ namespace NathanThus.PerfectAim
         /// <param name="origin">The origin position.</param>
         /// <param name="velocity">The velocity of the projectile.</param>
         /// <param name="time">The time post launch.</param>
-        /// <returns></returns>
+        /// <returns>Calculates the position of the projectile, at a given time during flight.</returns>
         public Vector3 CalculatePositionAtTime(Vector3 origin, Vector3 velocity, float time)
         {
             // Kinematic equation: position = origin + velocity * t + 0.5 * t^2 * gravity 
             return origin + velocity * time + 0.5f * Mathf.Pow(time, 2) * GetEnvironmentalAcceleration();
         }
+
+        #endregion
+
+        #region Private
 
         private Vector3 CalculateLaunchVelocity(Vector3 deltaPosition, float flightTime)
         {
@@ -152,5 +176,6 @@ namespace NathanThus.PerfectAim
             return new(_windAcceleration.x, _physicsAcceleration.y, _windAcceleration.y);
         }
 
+        #endregion
     }
 }
